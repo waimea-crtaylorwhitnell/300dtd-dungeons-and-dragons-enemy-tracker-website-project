@@ -2,13 +2,12 @@
 
 ## Identified Problem or Need
 
-Replace this text with a clearly stated problem or need that exists that your project will attempt to solve / fulfil.
+DMs (Dungeon Masters) have trouble keeping track of their endless enemy statblocks while playing their campaigns, this website will make that easier by having them all in one place, and allowing DMs to filter for what they're looking for.
 
 
 ## End-User Requirements
 
-Replace this text with a description of your typical end-users and their specific needs / expectations / requirements.
-
+DMs would need a simplistic design with clear indications of what their actions will do, and they'll need a way to filter any enemy statblocks that they add to their list
 
 ## Proposed Solution
 

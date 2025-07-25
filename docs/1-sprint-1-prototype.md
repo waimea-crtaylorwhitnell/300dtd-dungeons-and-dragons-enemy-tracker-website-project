@@ -38,7 +38,7 @@ The first stage of prototyping was to explore how the UI might 'flow' between st
 
 This Figma demo shows the initial design for the UI 'flow':
 
-**FIGMA FLOW - PLACE THE FIGMA EMBED CODE HERE - MAKE SURE IT IS SET SO THAT EVERYONE CAN ACCESS IT**
+<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/4PRVLcG1JW0NHbdwrbaCAN/dungeons-and-dragons-web-project?node-id=0-1&embed-host=share" allowfullscreen></iframe>
 
 ### Testing
 
