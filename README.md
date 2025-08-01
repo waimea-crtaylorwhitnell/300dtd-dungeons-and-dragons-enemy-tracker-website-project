@@ -21,6 +21,7 @@ This is a project which will allow the creation, tracking, and filtering of dnd 
 ## Project Links
 
 - [GitHub repo for the project](https://github.com/waimea-crtaylorwhitnell/300dtd-dungeons-and-dragons-enemy-tracker-website-project)
+- [project documentation](https://waimea-crtaylorwhitnell.github.io/300dtd-dungeons-and-dragons-enemy-tracker-website-project)
 - [Live web app](https://...)
 
 
