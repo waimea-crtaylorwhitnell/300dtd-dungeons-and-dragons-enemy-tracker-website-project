@@ -1,0 +1,61 @@
+{#=====================================================
+  About page (DEMO)
+  - Information about Flask
+  - Information about Jinja
+  - Information about Turso
+  - Information about PicoCSS
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block title %}
+
+    Flask Demo - About Flask and Jinja
+
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>A Single Plane...</h1>
+
+
+    <article>
+
+        <header>
+            <h2>{{ plane.name }}</h2>
+        </header>
+
+        <p><strong>{{ plane.description }}</strong></p>
+        <p>Suggested player level: {{ plane.suggested_player_level }}</p>
+
+        {% for enemy in enemies %}
+            <h3><strong>{{ enemy.name }}</strong></h3>
+            <p>{{ enemy.size }} {{ enemy.type }}</p>
+            <p>Challenge Rating: {{ enemy.challenge_rating }}</p>
+        {% endfor %}
+
+
+        <footer>
+
+            {# Only show delete link if logged in AND owner #}
+            {% if session.user_id and (plane.user_id == session.user_id) %}
+
+                <a href="/delete/{{ plane.id }}" onclick="return confirm('Really delete?');">Delete</a>
+
+            {% else %}
+
+                Owner: <strong>{{ plane.owner }}</strong>
+
+            {% endif %}
+
+        </footer>
+
+    </article>
+
+
+    <a role="button" href="/">Back to Plane List</a>
+
+{% endblock %}
+

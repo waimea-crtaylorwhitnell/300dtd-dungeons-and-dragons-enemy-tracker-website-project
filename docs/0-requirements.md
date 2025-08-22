@@ -203,7 +203,7 @@ Replace this text with an explanation of what you will need to consider moving f
 
 ## Help users recognize, diagnose, and recover from errors
 
-Replace this text with a clear explanation of what the principle means.
+
 
 ### Relevance to the System
 

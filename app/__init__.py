@@ -33,40 +33,48 @@ init_datetime(app)  # Handle UTC dates in timestamps
 #-----------------------------------------------------------
 @app.get("/")
 def index():
-    return render_template("pages/home.jinja")
+    with connect_db() as client:
+        # Get all the things from the DB
+        sql = """
+            SELECT planes.id,
+                   planes.name,
+                   users.name AS owner
 
+            FROM planes
+            JOIN users ON planes.user_id = users.id
+
+            ORDER BY planes.name ASC
+        """
+        params=[]
+        result = client.execute(sql, params)
+        planes = result.rows
+
+        # And show them on the page
+        return render_template("pages/home.jinja", planes=planes)
 
 #-----------------------------------------------------------
-# About page route
+# Planes page route - Show all the planes, and new plane form
 #-----------------------------------------------------------
-@app.get("/about/")
-def about():
-    return render_template("pages/about.jinja")
-
-
-#-----------------------------------------------------------
-# Things page route - Show all the things, and new thing form
-#-----------------------------------------------------------
-@app.get("/things/")
+@app.get("/planes/")
 def show_all_things():
     with connect_db() as client:
         # Get all the things from the DB
         sql = """
-            SELECT things.id,
-                   things.name,
+            SELECT planes.id,
+                   planes.name,
                    users.name AS owner
 
-            FROM things
-            JOIN users ON things.user_id = users.id
+            FROM planes
+            JOIN users ON planes.user_id = users.id
 
-            ORDER BY things.name ASC
+            ORDER BY planes.name ASC
         """
         params=[]
         result = client.execute(sql, params)
-        things = result.rows
+        planes = result.rows
 
         # And show them on the page
-        return render_template("pages/things.jinja", things=things)
+        return render_template("pages/planes.jinja", planes=planes)
 
 
 #-----------------------------------------------------------
@@ -100,18 +108,88 @@ def show_one_thing(id):
         else:
             # No, so show error
             return not_found_error()
+        
+#-----------------------------------------------------------
+# Plane page route
+#-----------------------------------------------------------
+@app.get("/plane/<int:id>")
+def plane(id):
+    with connect_db() as client:
+     # Get the thing details from the DB, including the owner info
+        sql = """
+            SELECT planes.id,
+                   planes.name,
+                   planes.description,
+                   planes.suggested_player_level,
+                   planes.user_id,
+                   users.name AS owner
 
+            FROM planes
+            JOIN users ON planes.user_id = users.id
+
+            WHERE planes.id=?
+               """
+        params = [id]   
+        result = client.execute(sql, params)
+        # Did we get a result?
+        if result.rows:
+            # yes, so show it on the page
+            plane = result.rows[0]
+
+        else:
+            # No, so show error
+            return not_found_error()
+        sql = """
+            SELECT planes.id,
+                   enemies.id,
+                   enemies.name,
+                   enemies.type,
+                   enemies.size,
+                   enemies.challenge_rating,
+                   enemies.plane_id,
+                   enemies.user_id,
+                   users.name AS owner
+
+            FROM enemies
+            JOIN planes ON enemies.plane_id = planes.id
+            JOIN users ON enemies.user_id = users.id
+
+            WHERE enemies.plane_id=? AND enemies.user_id=?
+        """
+        params = [id, session["user_id"]]
+        result = client.execute(sql, params)
+        enemies = result.rows
+        return render_template("pages/plane.jinja", plane=plane, enemies=enemies)
+
+#-----------------------------------------------------------
+# Enemy info page route
+#-----------------------------------------------------------
+@app.get("/enemy_info/")
+def enemy_info():
+    return render_template("pages/enemy_info.jinja")
+
+
+#-----------------------------------------------------------
+# Route for showing the form to add a new plane
+# - Restricted to logged in users
+#-----------------------------------------------------------
+@app.get("/plane_form")
+@login_required
+def plane_form():
+    # Show the form to add a new plane
+    return render_template("pages/plane_form.jinja")
 
 #-----------------------------------------------------------
 # Route for adding a thing, using data posted from a form
 # - Restricted to logged in users
 #-----------------------------------------------------------
-@app.post("/add")
+@app.post("/add_plane")
 @login_required
-def add_a_thing():
+def add_a_plane():
     # Get the data from the form
     name  = request.form.get("name")
-    price = request.form.get("price")
+    description = request.form.get("description")
+    suggested_player_level = request.form.get("suggested_player_level")
 
     # Sanitise the text inputs
     name = html.escape(name)
@@ -121,13 +199,13 @@ def add_a_thing():
 
     with connect_db() as client:
         # Add the thing to the DB
-        sql = "INSERT INTO things (name, price, user_id) VALUES (?, ?, ?)"
-        params = [name, price, user_id]
+        sql = "INSERT INTO planes (name, description, suggested_player_level, user_id) VALUES (?, ?, ?, ?)"
+        params = [name, description, suggested_player_level, user_id]
         client.execute(sql, params)
 
         # Go back to the home page
-        flash(f"Thing '{name}' added", "success")
-        return redirect("/things")
+        flash(f"Plane: '{name}' created", "success")
+        return redirect("/")
 
 
 #-----------------------------------------------------------

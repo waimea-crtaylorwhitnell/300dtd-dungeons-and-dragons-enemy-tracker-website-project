@@ -1,0 +1,240 @@
+{#=====================================================
+  Things page
+  - List of things passed in as 'things' array
+  - Form for adding a new thing
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block title %}
+
+    Flask Demo - Enemy maker
+
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>Enemy maker</h1>
+
+    {# Only show form if user is logged in #}
+    {% if session.user_id %}
+
+        <article>
+
+            <h3>Add a New enemy...</h3>
+
+            <form action="/add_enemy" method="POST">
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Name of new enemy"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="size"
+                    placeholder="Size of new enemy"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="type"
+                    placeholder="Type of new enemy"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="alignment"
+                    placeholder="Alignment of new enemy"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="armor_class"
+                    placeholder="Armor Class of new enemy"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="hit_points"
+                    placeholder="Hit Points of new enemy"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="speed"
+                    placeholder="Speed of new enemy"
+                    required
+                >
+
+                <input
+                    type="number"
+                    name="strength"
+                    placeholder="Strength of new enemy"
+                    required
+                >
+
+                <input
+                    type="number"
+                    name="dexterity"
+                    placeholder="Dexterity of new enemy"
+                    required
+                >
+
+                <input
+                    type="number"
+                    name="constitution"
+                    placeholder="Constitution of new enemy"
+                    required
+                >
+
+                <input
+                    type="number"
+                    name="intelligence"
+                    placeholder="Intelligence of new enemy"
+                    required
+                >
+
+                <input
+                    type="number"
+                    name="wisdom"
+                    placeholder="Wisdom of new enemy"
+                    required
+                >   
+
+                <input
+                    type="number"
+                    name="charisma"
+                    placeholder="Charisma of new enemy"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="saving_throws"
+                    placeholder="Saving Throws of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="skills"
+                    placeholder="Skills of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="damage_resistances"
+                    placeholder="Damage Resistances of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="damage_immunities"
+                    placeholder="Damage Immunties of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="damage_vulnerabilities"
+                    placeholder="Damage Vulnerabilities of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="condition_resistances"
+                    placeholder="Condition Resistances of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="condition_immunities"
+                    placeholder="Condition Immunities of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="condition_vulnerabilities"
+                    placeholder="Condition Vulnerabilities of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="senses"
+                    placeholder="Senses of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="languages"
+                    placeholder="Languages of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="challenge_rating"
+                    placeholder="Challenge Rating of new enemy"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="special_traits"
+                    placeholder="Special Traits of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="actions"
+                    placeholder="Actions of new enemy"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="reactions"
+                    placeholder="Reactions of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="limited_usage"
+                    placeholder="Limited Usages for new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="equipment"
+                    placeholder="Equipment of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="legendary_actions"
+                    placeholder="Legendary Actions of new enemy"
+                >
+
+                <input
+                    type="text"
+                    name="legendary_creature_lair"
+                    placeholder="Legendary Creature Lair of new enemy"
+                >
+
+                <button>Create the enemy!</button>
+
+            </form>
+
+        </article>
+
+    {% endif %}
+
+{% endblock %}
+

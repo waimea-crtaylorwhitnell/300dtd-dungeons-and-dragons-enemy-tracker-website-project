@@ -1,0 +1,60 @@
+{#=====================================================
+  Things page
+  - List of things passed in as 'things' array
+  - Form for adding a new thing
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block title %}
+
+    Flask Demo - Plane Maker
+
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>Plane maker</h1>
+
+    {# Only show form if user is logged in #}
+    {% if session.user_id %}
+
+        <article>
+
+            <h3>Add a New plane...</h3>
+
+            <form action="/add_plane" method="POST">
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Name of new plane"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="description"
+                    placeholder="Description of new plane"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="suggested_player_level"
+                    placeholder="Suggested player level"
+                    required
+                >
+
+                <button>Create the plane!</button>
+
+            </form>
+
+        </article>
+
+    {% endif %}
+
+{% endblock %}
+
